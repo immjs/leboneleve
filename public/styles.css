@@ -1,0 +1,87 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+.navbar {
+  display: flex;
+  padding: 8px;
+  gap: 8px;
+  width: calc(100% - 16px);
+  height: 30px;
+  align-items: center;
+  background-color: #333333;
+}
+
+.uri_holder {
+  flex: 1;
+  height: 100%;
+  padding: 0;
+  position: relative;
+}
+
+#uri {
+  height: 100%;
+  width: calc(100% - 5px);
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  padding-left: 5px;
+  font-size: 16px;
+  font-family: 'Barlow';
+  color: #ffffff;
+  border-radius: 10px;
+  background-color: #555555;
+  transition: background-color 0.05s ease-in-out;
+}
+
+#uri:focus {
+  outline: none;
+  background-color: #444444;
+}
+
+#refresh {
+  --padding: 3px;
+  padding: var(--padding);
+  height: calc(100% - 2 * var(--padding));
+  border-radius: 10px;
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 0;
+  transition: background-color 0.05s ease-in-out;
+}
+
+#refresh.clicked {
+  background-color: #ababab;
+}
+
+.navbar-interactibles {
+  --padding: 3px;
+  padding: var(--padding);
+  height: calc(100% - 2 * var(--padding));
+  border-radius: 10px;
+  transition: background-color 0.05s ease-in-out;
+}
+
+.navbar-interactibles.clicked {
+  background-color: #222222;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#portal {
+  flex: 1;
+  border: none;
+}
+
+#share {
+  display: none;
+}
