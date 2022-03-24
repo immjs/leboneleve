@@ -8,7 +8,7 @@ app.register(require('fastify-cors'), {
   origin: true,
 });
 
-app.addContentTypeParser('*', (req, done) => {
+app.addContentTypeParser('*', (req, body, done) => {
     done(null, req)
 })
 
@@ -71,11 +71,18 @@ app.all('/portal', async (request, reply) => {
     if (`content-encoding
 x-frame-options
 content-length
-access-control-allow-origin`.split('\n').includes(key)) continue;
+access-control-allow-origin
+set-cookie`.split('\n').includes(key)) continue;
     if (key === 'location') value = `/portal?url=${encodeURIComponent(value)}`;
     console.log(key, value)
     // reply.raw.setHeader(key, value)
     reply.header(key, value)
+  }
+
+  // Map cookies to service-worker-accessible header
+  const cookiesSetTo = requestToRemote.headers.get('set-cookie');
+  if (cookiesSetTo) {
+    reply.header('stck-sw', cookiesSetTo);
   }
 
   // console.log(requestToRemote.status, body)
