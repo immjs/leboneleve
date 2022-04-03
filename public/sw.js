@@ -33,8 +33,9 @@ self.addEventListener('fetch', (event) => {
     .respondWith((async () => {
       let requestURL = event.request.url;
       let windowPortalURL = '';
+      let windowClient;
       try {
-        const windowClient = await event.srcElement.clients.get(event.clientId)
+        windowClient = await event.srcElement.clients.get(event.clientId)
         const windowURL = new URL(windowClient.url);
         windowPortalURL = new URL(decodeURIComponent(windowURL.searchParams.get('url'))).origin;
       } catch (err) {
@@ -74,12 +75,15 @@ self.addEventListener('fetch', (event) => {
       if (requestURL.startsWith(`${origin}/`)) {
         requestURL = requestURL.replace(`${origin}/`, windowPortalURL);
       }
-      console.log({ event, requestURL })
+
+      console.log(event.resultingClientId, event)
 
       if (event.resultingClientId) {
         if (!focusedTop) return;
         focusedTop.postMessage({ type: 'SET_URL', url: requestURL });
       }
+
+      if (windowPortalURL === '' || windowClient?.frameType === 'top-level') return;
 
 
       /* const newRequestURL = `${origin}/portal?url=${encodeURIComponent(requestURL)}`;
