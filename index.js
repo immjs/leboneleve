@@ -28,8 +28,12 @@ app.all('/fool', (req, reply) => {
 });
 
 app.all('/portal', async (request, reply) => {
+  let url = request.query.url;
 
-  const url = request.query.url;
+  if (url.startsWith('/')) {
+    console.log(request.query.origin);
+  }
+
   const customHeaders = { ...request.headers };
 
   if (request.headers.referer) {

@@ -116,6 +116,7 @@ self.addEventListener('fetch', (event) => {
       const cookiePaths = cookies.filter((cookie) => {
         if (cookie.name.startsWith('GOD_FORBID_YOURE_READING_THIS')) return false;
         console.log({ cookie })
+        return true;
       });
 
       return fetch(`${origin}/portal?url=${encodeURIComponent(requestURL)}&origin=${origin}`, {
